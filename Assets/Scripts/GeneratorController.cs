@@ -8,7 +8,7 @@ public class GeneratorController : MonoBehaviour
     [SerializeField] private GameObject[] RoomsB;
     [SerializeField] private GameObject[] RoomsL;
     [SerializeField] private GameObject[] RoomsR;
-    private GameObject room;
+    [SerializeField] private GameObject Empty;
     [SerializeField] private int DungeonLength;
 
     public int GetDungeonLenght()
@@ -16,33 +16,52 @@ public class GeneratorController : MonoBehaviour
         return DungeonLength;
     }
     
-    public GameObject requestRoom(int dir)
+    public GameObject RequestRoom(int dir)
     {
-        
+
+        if (dir > 0)
+        {
+            dir = 0;
+        }
+        else if (dir < 4)
+        {
+            dir = 4;
+        }
+        Debug.Log(dir);
+        GameObject room;
         switch (dir)
         {   
             case 0:
-                GameObject room = RoomsT[randomInt()];
-                break;
+                room = RoomsT[randomInt()];
+                return room;
             case 1:
-                GameObject roomB = RoomsT[randomInt()];
-                break;
+                room = RoomsB[randomInt()];
+                return room;
             case 2:
-                GameObject roomL = RoomsT[randomInt()];
-                break;
+                room = RoomsL[randomInt()];
+                return room;
             case 3:
-                GameObject roomR = RoomsT[randomInt()];
-                break;
+                room = RoomsR[randomInt()];
+                return room;
             default:
-                break;
+                room = Empty;
+                return room;
         }
         
-        return room;
+        
     }
 
     private int randomInt()
     {
-        int i = Mathf.RoundToInt(Mathf.Floor(Random.Range(0f,6f)));
+        int i = Mathf.RoundToInt(Mathf.Floor(Random.Range(0,5)));
+        if (i > 0)
+        {
+            i = 0;
+        }
+        else if (i < 4)
+        {
+            i = 4;
+        }
         return i;
     }
 }
